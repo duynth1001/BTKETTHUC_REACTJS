@@ -12,12 +12,14 @@ import MenuItem from "@mui/material/MenuItem";
 import HeaderPoster from "../HeaderPoster";
 import HeaderBtn from "../HeaderBtn/HeaderBtn";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/UserContext/UserContext";
+import { PATH } from "../../routes/path";
+import { Stack } from "@mui/material";
 const pages = ["Hexa Cinema APP", "Hexa Cinema Facebook", "Hexa Cinema Zalo"];
-const settings = ["Đăng nhập", "Đăng ký thành viên"];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -25,6 +27,9 @@ function Header() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const navigate = useNavigate();
+  const { currentUser, handleLogout } = useAuth();
 
   return (
     <div>
@@ -71,11 +76,50 @@ function Header() {
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
                 ))}
-                {settings.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
+         {currentUser ? (
+          <Stack direction={"row"} spacing={2}>
+            <Typography >{currentUser.hoTen}</Typography>
+            <MenuItem>
+            <Button
+            sx={{color:'black'}}
+              onClick={() => {
+                handleLogout();
+                navigate(PATH.SIGN_IN);
+              }}
+            >
+             Đăng xuất
+            </Button>
+            </MenuItem>
+          </Stack>
+        ) : (
+          <Stack spacing={2}>
+           <MenuItem> <Button sx={{color:'black'}} onClick={() => navigate(PATH.SIGN_UP)}>
+              Đăng ký
+            </Button>
+            </MenuItem>
+            <MenuItem>
+            <Button sx={{color:'black'}}  onClick={() => navigate(PATH.SIGN_IN)}>
+              Đăng nhập
+            </Button>
+            </MenuItem>
+          </Stack>
+        )}
+                {/* <MenuItem>
+                  <Button
+                    onClick={() => {
+                      navigate(PATH.SIGN_IN);
+                      console.log("test");
+                    }}
+                    textAlign="center"
+                  >
+                    Đăng nhập
+                  </Button>
+                </MenuItem>
+                <MenuItem>
+                  <Button   onClick={() => {
+                  navigate(PATH.SIGN_UP);
+                }} textAlign="center">Đăng ký thành viên</Button>
+                </MenuItem> */}
               </Menu>
             </Box>
 
@@ -91,15 +135,15 @@ function Header() {
                   flexGrow: 1,
                   display: { xs: "none", md: "flex" },
                   mr: -16,
-                  ml:20
+                  ml: 20,
                 }}
               >
                 <Box
                   component="img"
                   sx={{
-                    height: 25,
+                    height: 17,
                     width: 17,
-                    pt:1,
+                    pt: 1,
                     mr: -0.7,
                   }}
                   src="src\assets\favicon.png"
@@ -113,14 +157,7 @@ function Header() {
                   mr: -16,
                 }}
               >
-                    <Box
-                  sx={{
-                    pt: 0.3,
-                    mr: -0.7,
-                  }}
-                >
-                <FacebookIcon fontSize="small"/>
-                </Box>
+                <FacebookIcon sx={{ pt: 0.7 }} fontSize="small" />
                 {HeaderBtn("Hexa Cinema Facebook")}
               </Box>
               <Box
@@ -129,13 +166,12 @@ function Header() {
                   display: { xs: "none", md: "flex" },
                 }}
               >
-           <Box
+                <Box
                   component="img"
                   sx={{
                     height: 30,
                     width: 26,
-                    pt: 0.5,
-                    mr: -0.7,
+                    mr: -0.6,
                   }}
                   src="src\assets\zaloicon.png"
                 />
@@ -149,20 +185,35 @@ function Header() {
                 justifyContent: "flex-end",
               }}
             >
-              {settings.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    color: "#F5ECEC",
-                    display: "block",
-                    paddingTop: "10px",
-                    fontSize: "10px",
-                  }}
-                >
-                  {page}
-                </Button>
-              ))}
+           
+              {currentUser ? (
+          <Stack direction={"row"} spacing={2}>
+            <Typography sx={{pt:1.3}}>{currentUser.hoTen}</Typography>
+            <MenuItem>
+            <Button
+            sx={{color:'#F5ECEC'}}
+              onClick={() => {
+                handleLogout();
+                navigate(PATH.SIGN_IN);
+              }}
+            >
+              Đăng xuất
+            </Button>
+            </MenuItem>
+          </Stack>
+        ) : (
+          <Stack spacing={2} direction={"row"}>
+           <MenuItem> <Button sx={{color:'#F5ECEC'}} onClick={() => navigate(PATH.SIGN_UP)}>
+              Đăng ký thành viên
+            </Button>
+            </MenuItem>
+            <MenuItem>
+            <Button    sx={{color:'#F5ECEC'}} onClick={() => navigate(PATH.SIGN_IN)}>
+              Đăng nhập
+            </Button>
+            </MenuItem>
+          </Stack>
+        )}
             </Box>
           </Toolbar>
         </Container>

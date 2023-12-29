@@ -11,9 +11,9 @@ const BtnShowingMovieGroup = () => {
         spacing={2}
         sx={{ justifyContent: "center", padding: "3vh" }}
       >
-       {BtnShowingMovie('PHIM HOT')}
-       {BtnShowingMovie('PHIM ĐANG CHIẾU')}
-       {BtnShowingMovie('PHIM SẮP CHIẾU')}
+      {BtnShowingMovie('PHIM HOT')}
+      {BtnShowingMovie('PHIM ĐANG CHIẾU')}
+      {BtnShowingMovie('PHIM SẮP CHIẾU')}
       </Stack>
     </Container>
   </Box>

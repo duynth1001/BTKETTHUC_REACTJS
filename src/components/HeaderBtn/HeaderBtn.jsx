@@ -1,7 +1,13 @@
 import { Button } from '@mui/material'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { PATH } from '../../routes/path'
 
 const HeaderBtn = (props) => {
+  const navigate=useNavigate()
+  const handleOnClick = ()=>{
+    navigate(PATH.HOME)
+  }
   return (
         <Button
           
@@ -10,6 +16,9 @@ const HeaderBtn = (props) => {
                     display: "block",
                     paddingTop: "10px",
                     fontSize:'10px'
+                  }}
+                  onClick={()=>{
+                    handleOnClick()
                   }}
                 >
                   {props}

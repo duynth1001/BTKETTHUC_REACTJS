@@ -5,7 +5,6 @@ const HeaderPoster = () => {
     <Box
     component="img"
     style={{ width: "100%",backgroundColor:'#F5ECEC', height: "100%" }}
-    alt="The house from the offer."
     src="src\assets\Banner.png"
     sx={{mb:'-1vh'}}
   />
