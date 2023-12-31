@@ -14,7 +14,7 @@ fetcher.interceptors.request.use((config) => {
   const user = JSON.parse(localStorage.getItem(CURRENT_USER));
   if (user) {
     // thêm Authorization vào header
-    config.headers["Authorization"] = user.accessToken;
+    config.headers["Authorization"] = `Bearer ${user.accessToken}`;
   }
   return config;
 });
